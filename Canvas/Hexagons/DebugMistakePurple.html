@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Hexagon</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="hexagonCanvas" width="500" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById('hexagonCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawHexagon(centerX, centerY, size, color) {
+            lStrokeStyle = '#357ABD';
+            lStrokeStyle = color ;
+
+            ctx.beginPath();
+            angleDegreeOffset = 30;
+            angleRadOffset = 180;
+
+            angleDegreeOffset = 0;
+            angleRadOffset    = 180;
+            // Loop through 6 sides
+            for (let i = 0; i < 6; i++) {
+                // 60 degrees per side.
+                // Subtracted 30 degrees to make the hexagon "pointy" at the top.
+                const angle_deg = 60 * i - angleDegreeOffset;
+                const angle_rad = Math.PI / angleRadOffset * angle_deg;
+
+                const x = centerX + size * Math.cos(angle_rad);
+                const y = centerY + size * Math.sin(angle_rad);
+
+				console.log("x=" + x);
+				console.log("y=" + y);
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                    console.log("ctx.moveTo(x, y);");
+                    ctx.strokeStyle = 'red';
+                } else {
+                    ctx.lineTo(x, y);
+                    console.log("ctx.lineTo(x, y);");
+                    if (i == 1)
+                       ctx.strokeStyle = 'blue';
+                    if (i == 2)
+                       ctx.strokeStyle = 'yellow';
+                    if (i == 3)
+					   ctx.strokeStyle = 'pink';
+                    if (i == 4)
+                       ctx.strokeStyle = 'green';
+                    if (i == 5)
+                       ctx.strokeStyle = 'purple';
+                    if (i == 6)
+					   ctx.strokeStyle = 'orange';
+
+                }
+            }
+
+            ctx.closePath();
+
+            // Style the hexagon
+            ctx.fillStyle = '#4A90E2';
+            ctx.fill();
+            ctx.lineWidth = 5;
+            //ctx.strokeStyle = lStrokeStyle;
+            ctx.stroke();
+        }
+
+        // Draw it in the center of our 500x500 canvas
+
+        // 1 Middle Top
+        yForHex = 250;
+        HexagonSize = 30;
+        drawHexagon(250, yForHex, HexagonSize, 'pink');
+
+        // 2 Middle Middle
+        yForHex = yForHex + (HexagonSize*2);
+        drawHexagon(250, yForHex, HexagonSize, 'yellow');
+
+        // 3 Middle Lower
+        yForHex = yForHex + (HexagonSize*2);
+        drawHexagon(250, yForHex, HexagonSize, 'orange');
+
+        // 4 ~`Left Upper
+		xForHex = 250-(HexagonSize*2 - 10);
+        yForHex = 250 + HexagonSize ;
+        drawHexagon(xForHex, yForHex, HexagonSize, 'black');
+
+        // 5 ~ Left Lower
+		xForHex = 250- ( 1*(HexagonSize*2 - 10));
+        yForHex = 250 + (3 * HexagonSize)  ;
+        drawHexagon(xForHex, yForHex, HexagonSize, 'green');
+
+        // 6 ~`Right Upper
+		xForHex = 250 + (HexagonSize*2 - 10);
+        yForHex = 250 + HexagonSize ;
+        drawHexagon(xForHex, yForHex, HexagonSize, 'blue');
+
+        // 7 ~ Right Lower
+		xForHex = 250 + ( 1*(HexagonSize*2 - 10));
+        yForHex = 250 + (3 * HexagonSize)  ;
+        drawHexagon(xForHex, yForHex, HexagonSize, 'red');
+
+    </script>
+</body>
+</html>
