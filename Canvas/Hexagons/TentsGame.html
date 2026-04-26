@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Hexagon</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        		        .container { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 300px; }
+				        input { width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+				        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+				        button:hover { background-color: #0056b3; }
+				        #output { margin-top: 20px; padding: 10px; background: #e9ecef; border-radius: 4px; display: none; }
+
+        canvas {
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <canvas id="hexagonCanvas" width="500" height="500"></canvas>
+
+    <form id="myForm">
+        <label for="numTents">Number of Tents(hexagons):</label>
+        <input type="text" id="numTents" name="numTents" placeholder="Type here..." required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="output">
+        <strong>You submitted:</strong> <span id="result"></span>
+    </div>
+</div>
+
+    <script>
+        const canvas = document.getElementById('hexagonCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawHexagon(centerX, centerY, size, color, sMode, sMessage) {
+            lStrokeStyle = '#357ABD';
+            lStrokeStyle = color ;
+
+            ctx.beginPath();
+            angleDegreeOffset = 30;
+            angleRadOffset = 180;
+
+            angleDegreeOffset = 0;
+            angleRadOffset    = 180;
+            // Loop through 6 sides
+            console.log(" ******************************************************************************** ");
+			console.log(" ******************************************************************************** ");
+			console.log(" ******************************************************************************** ");
+            for (let i = 0; i < 6; i++) {
+                // 60 degrees per side.
+                // Subtracted 30 degrees to make the hexagon "pointy" at the top.
+                const angle_deg = 60 * i - angleDegreeOffset;
+                const angle_rad = Math.PI / angleRadOffset * angle_deg;
+
+                const x = centerX + size * Math.cos(angle_rad);
+                const y = centerY + size * Math.sin(angle_rad);
+
+				console.log(" **************************************** ");
+				console.log(" **************************************** ");
+			    console.log(" **************************************** ");
+				console.log(" ******************** ");
+				console.log("x=" + x);
+				console.log("y=" + y);
+				console.log(" ******************** ");
+
+                if (i === 10) {
+                    ctx.moveTo(x, y);
+                    console.log(sMessage);
+                    console.log("************ i = " + i );
+                    console.log("ctx.moveTo(x, y);");
+                    ctx.strokeStyle = 'red';
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, y);
+                    console.log(sMessage);
+                    console.log("************ i = " + i );
+                    console.log("ctx.lineTo(x, y);");
+                    if (i == 1)
+                       ctx.strokeStyle = 'blue';
+                    if (i == 2)
+                       ctx.strokeStyle = 'yellow';
+                    if (i == 3)
+					   ctx.strokeStyle = 'pink';
+                    if (i == 4)
+                       ctx.strokeStyle = 'green';
+                    if (i == 5)
+                       ctx.strokeStyle = 'purple';
+                    if (i == 0)
+					   ctx.strokeStyle = 'orange';
+					ctx.lineWidth = 5;
+					ctx.lineCap = 'round';
+					ctx.stroke();
+
+
+                }
+            }
+
+            //ctx.closePath();
+
+            // Style the hexagon
+            ctx.fillStyle = '#4A90E2';
+            ctx.fill();
+            ctx.lineWidth = 5;
+            //ctx.strokeStyle = lStrokeStyle;
+            ctx.stroke();
+        }
+
+
+
+	    const form = document.getElementById('myForm');
+	    const outputDiv = document.getElementById('output');
+	    const resultSpan = document.getElementById('result');
+
+	    form.addEventListener('submit', function(event) {
+	        // Prevent the default page reload
+	        event.preventDefault();
+
+	        // Get the value from the input
+	        const value = document.getElementById('numTents').value;
+
+	        // Display the value back on the page
+	        resultSpan.textContent = value;
+	        outputDiv.style.display = 'block';
+
+	        // Optional: Clear the input
+
+	                // Draw it in the center of our 500x500 canvas
+
+			        alert( "( " + document.getElementById('numTents').value + " )" ) ;
+			        alert( iNumberHex = document.getElementById('numTents').value );
+			        iHexCount = 0;
+			        iHexCount = iHexCount + 1;
+
+			        if ( iHexCount <= iNumberHex ) {
+			        	// 1 Middle Top
+			        	yForHex = 250;
+			        	HexagonSize = 30;
+			        	drawHexagon(250, yForHex, HexagonSize, 'pink', 'sMode', ' *** One *** ');
+			        }
+			        iHexCount = iHexCount + 1;
+
+			        if ( iHexCount <= iNumberHex ) {
+			        	// 2 Middle Middle
+			        	yForHex = yForHex + (HexagonSize*2);
+			        	drawHexagon(250, yForHex, HexagonSize, 'yellow', 'sMode', ' *** Two *** ');
+					}
+			        iHexCount = iHexCount + 1;
+
+			        if ( iHexCount <= iNumberHex ) {
+				        // 3 Middle Lower
+				        yForHex = yForHex + (HexagonSize*2);
+				        drawHexagon(250, yForHex, HexagonSize, 'orange', 'sMode', ' *** Three *** ');
+			        }
+			        iHexCount = iHexCount + 1;
+
+			        if ( iHexCount <= iNumberHex ) {
+				        // 4 ~`Left Upper
+						xForHex = 250-(HexagonSize*2 - 10);
+				        yForHex = 250 + HexagonSize ;
+				        drawHexagon(xForHex, yForHex, HexagonSize, 'black', 'sMode', ' *** Four *** ');
+			        }
+			        iHexCount = iHexCount + 1;
+
+			        if ( iHexCount <= iNumberHex ) {
+				        // 5 ~ Left Lower
+						xForHex = 250- ( 1*(HexagonSize*2 - 10));
+				        yForHex = 250 + (3 * HexagonSize)  ;
+				        drawHexagon(xForHex, yForHex, HexagonSize, 'green', 'sMode', ' *** Five *** ');
+			        }
+			        iHexCount = iHexCount + 1;
+
+			        if ( iHexCount <= iNumberHex ) {
+				        // 6 ~`Right Upper
+						xForHex = 250 + (HexagonSize*2 - 10);
+				        yForHex = 250 + HexagonSize ;
+				        drawHexagon(xForHex, yForHex, HexagonSize, 'blue', 'sMode', ' *** Six *** ');
+			        }
+			        iHexCount = iHexCount + 1;
+
+			        if ( iHexCount <= iNumberHex ) {
+				        // 7 ~ Right Lower
+						xForHex = 250 + ( 1*(HexagonSize*2 - 10));
+				        yForHex = 250 + (3 * HexagonSize)  ;
+				        drawHexagon(xForHex, yForHex, HexagonSize, 'red', 'sMode', ' *** Seven *** ');
+			        }
+			        iHexCount = iHexCount + 1;
+
+
+
+	        form.reset();
+
+
+	    });
+	</script>
+
+</body>
+</html>
